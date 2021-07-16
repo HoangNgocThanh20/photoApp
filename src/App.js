@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
 import './App.scss';
+import Header from './components/Header';
 import NotFound from './components/NotFound';
 
 // Lazy load - Code splitting
@@ -11,14 +12,8 @@ function App() {
     <div className="photo-app">
       <Suspense fallback={<div>Loading ...</div>}>
         <BrowserRouter>
-
-          {/* TODO: Remove after testing */}
-          <ul>
-            <li><Link to="/photo">Go to photo page</Link></li>
-            <li><Link to="/photo/add">Go to Add new photo page</Link></li>
-            <li><Link to="/photo/123">Go to Edit photo page</Link></li>
-          </ul>
-
+          <Header />
+          
           <Switch>
             <Redirect exact from="/" to="/photo" />
 
