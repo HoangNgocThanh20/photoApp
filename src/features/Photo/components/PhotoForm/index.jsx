@@ -1,58 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
-import {Button,FormGroup,Input,Label} from 'reactstrap';
-import Images from '../../../../constants/image'
-import { PHOTO_CATEGORY_OPTIONS } from '../../../../constants/global'
-import { Formik,Form, FastField } from 'formik';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
+import { makeStyles } from '@material-ui/core/styles';
+import * as yup from 'yup';
 import InputField from '../../../../components/FormControl/InputField';
-import SelectField from '../../../../components/FormControl/SelectField';
 import RandomPhotoField from '../../../../components/FormControl/RandomPhotoField';
-PhotoForm.propTypes = {
-    
-};
+import SelectField from '../../../../components/FormControl/SelectField';   
+import Spinner from 'reactstrap/lib/Spinner';
 
+const useStyles = makeStyles((theme) => ({
+    button: {
+      marginTop: '20px'
+    },
+  }));
 function PhotoForm(props) {
-    const initialValues = {
-        title: '',
-        categoryId: null,
-    }
+    const classes = useStyles();
+    const [url,setUrl] = useState('');
+    //validate form
+        const schema = yup.object().shape({
+            title: yup.string().required('vui lòng nhập trường này')
+            .min(6,'vui lòng nhập ít nhất 6 ký tự')
+        });
+
+        const form = useForm({
+            defaultValues: {
+                title: '',
+            },
+            resolver: yupResolver(schema)
+        });
+        const onGetUrlImage = (url) => {
+            setUrl(url)
+        }
+
+        const onSubmit = (values) => {props.onSubmit({...values,photo: url})}
     return (
-       <Formik initialValues={initialValues}>
-           {formikProps => {
-               const {values,errors,touched} = formikProps;
-               console.log({values,errors,touched});
-
-               return (
-               <Form>
-                 <FastField 
-                    name="title"
-                    component={InputField}
-
-                    label="title"
-                    placeholder="Eg: Wow nature ... "
-                 />
-
-                  <FastField 
-                    name="categoryId"
-                    component={SelectField}
-
-                    options={PHOTO_CATEGORY_OPTIONS}
-                    label="category"
-                    placeholder="what's your photo category?"
-                 />
-    
-                <FastField 
-                    name="photo"
-                    component={RandomPhotoField}
-                    label="photo"
-                />
-                <FormGroup>
-                    <Button color="primary">Add to Album</Button>
-                </FormGroup>
-            </Form>
-            )} }
-       </Formik>
+        //form hook
+       <form onSubmit={form.handleSubmit(onSubmit)}>
+           <InputField form={form} name="title" label='title' type='text' />
+           <SelectField form={form} name= 'selectValue' label='category'/>
+           <RandomPhotoField form={form} label='photo' name='photo' onSubmit={onGetUrlImage}/>
+           <Button variant="contained" color="primary" type="submit" className={classes.button}>
+                Add to album
+           </Button>
+       </form>
     );
 }
 

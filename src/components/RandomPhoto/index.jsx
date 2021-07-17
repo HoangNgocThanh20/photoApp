@@ -18,7 +18,7 @@ const getRandomImageUrl = () => {
 function RandomPhoto(props) {
     const {name,imageUrl,onImageUrlChange,onRandomButtonBlur} = props;
 
-    const handleRandomPhotoClick = async () => {
+    const handleRandomPhotoClick = () => {
         if(onImageUrlChange){
             const randomImageUrl = getRandomImageUrl();
             onImageUrlChange(randomImageUrl)

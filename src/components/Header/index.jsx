@@ -1,13 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Container , Row , Col} from 'reactstrap'
-import './Header.scss'
 import { NavLink } from 'react-router-dom';
-Header.propTypes = {
+import { Col, Container, Row } from 'reactstrap';
+import './Header.scss';
 
-};
 
-function Header(props) {
+function Header() {
   return (
     <div className="header">
       <Container>

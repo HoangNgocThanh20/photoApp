@@ -1,44 +1,40 @@
 import RandomPhoto from '../../RandomPhoto'
-import { ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { FormFeedback, FormGroup, Label } from 'reactstrap';
+import React, { useState } from 'react';
+import { Controller } from 'react-hook-form';
 
 RandomPhotoField.propTypes = {
-  field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
-
+  name: PropTypes.string,
   label: PropTypes.string,
+  onSubmit: PropTypes.func,
 };
 
-RandomPhotoField.defaultProps = {
-  label: '',
-}
 
 function RandomPhotoField(props) {
-  const { field, form, label } = props;
-  const { name, value, onBlur } = field;
-  const { errors, touched } = form;
-  const showError = errors[name] && touched[name];
-
+  const [imageValue,setImageValue] = useState('');
+  const {name,form,onSubmit} = props;
   const handleImageUrlChange = (newImageUrl) => {
-    form.setFieldValue(name, newImageUrl)
+    setImageValue(newImageUrl);
   }
+  onSubmit(imageValue)
 
   return (
-    <FormGroup>
-      {label && <Label for={name}>{label}</Label>}
-
-      <RandomPhoto
+    <div>
+      <Controller 
         name={name}
-        imageUrl={value}
-        onImageUrlChange={handleImageUrlChange}
-        onRandomButtonBlur={onBlur}
-      />
+        control={form.control}
 
-      <div className={showError ? 'is-invalid' : ''}></div>
-      <ErrorMessage name={name} component={FormFeedback} />
-    </FormGroup>
+        render ={({ field:{onBlur}  }) => <RandomPhoto
+                                      name={name}
+                                      form={form}
+                                      imageUrl={imageValue}
+                                      onImageUrlChange={handleImageUrlChange}
+                                      onRandomButtonBlur={onBlur}
+                                  />}
+      />
+        
+    </div>
   );
 }
 

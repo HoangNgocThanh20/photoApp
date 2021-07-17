@@ -1,31 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FormGroup, Input, Label } from 'reactstrap';
+import { TextField } from '@material-ui/core';
+import { Controller } from 'react-hook-form';
 
-InputField.propTypes = {
-    field: PropTypes.object.isRequired,
-    form: PropTypes.object.isRequired,
 
-    type: PropTypes.string,
-    label: PropTypes.string,
-    placeholder: PropTypes.string,
-    disabled: PropTypes.bool, 
-};
-
-function InputField({type = 'text',label = '',placeholder = '',disabled = false,field,form}) {
-    const {name} = field;
+function InputField({form = {}, name = '',label = '',type = ''}) {
+    const { control , formState:{ errors } } = form;
+    const showError = errors[name]
     return (
-        <FormGroup>
-            {label && <Label for={name}>{label}</Label>}
-            
-            <Input 
-                type = {type}
-                disabled={disabled}
-                id = {name} 
+        <div>
+            <label style={{fontSize: '18px'}}>{label}</label>
+            <Controller
+            name={name}
+            control={control}
+
+            render={({ field }) => <TextField
+                placeholder="Eg: wow nature !!"
                 {...field}
-                placeholder="Eg: Wow nature ... " 
-            />
-        </FormGroup>
+                type={type}
+                error={!!showError}
+                helperText={showError?.message}
+                variant="outlined"
+                fullWidth
+            />}
+        />
+      </div>
     );
 }
 
