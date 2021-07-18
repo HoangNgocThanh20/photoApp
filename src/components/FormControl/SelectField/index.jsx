@@ -41,7 +41,6 @@ function SelectField({label='',form={},name=''}) {
                         label={label}
                         {...field}
                         fullWidth
-                        value={value}
                         >
                     <MenuItem value={1}>Technology</MenuItem>
                     <MenuItem value={2}>Education</MenuItem>

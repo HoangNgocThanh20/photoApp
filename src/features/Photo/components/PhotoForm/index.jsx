@@ -1,13 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { makeStyles } from '@material-ui/core/styles';
 import * as yup from 'yup';
 import InputField from '../../../../components/FormControl/InputField';
 import RandomPhotoField from '../../../../components/FormControl/RandomPhotoField';
-import SelectField from '../../../../components/FormControl/SelectField';   
-import Spinner from 'reactstrap/lib/Spinner';
+import SelectField from '../../../../components/FormControl/SelectField';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -15,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 function PhotoForm(props) {
+    const { initialValues,isAddMode } = props
     const classes = useStyles();
     const [url,setUrl] = useState('');
     //validate form
@@ -25,7 +25,7 @@ function PhotoForm(props) {
 
         const form = useForm({
             defaultValues: {
-                title: '',
+                ...initialValues
             },
             resolver: yupResolver(schema)
         });
@@ -40,8 +40,8 @@ function PhotoForm(props) {
            <InputField form={form} name="title" label='title' type='text' />
            <SelectField form={form} name= 'selectValue' label='category'/>
            <RandomPhotoField form={form} label='photo' name='photo' onSubmit={onGetUrlImage}/>
-           <Button variant="contained" color="primary" type="submit" className={classes.button}>
-                Add to album
+           <Button variant="contained" color={isAddMode ? 'primary' : 'secondary'} type="submit" className={classes.button}>
+                {isAddMode ? 'Add to album' : 'Update your photo'}
            </Button>
        </form>
     );

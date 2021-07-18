@@ -38,7 +38,10 @@ function RandomPhoto(props) {
                 </Button>
             </div>
             <div className="random-photo__photo">
-                {imageUrl && <img src={imageUrl} alt="Ooops ... not found . please click random again !!" />}
+                {imageUrl && <img src={imageUrl} 
+                alt="Ooops ... not found . please click random again !!" 
+                onError={e => e.target.src = handleRandomPhotoClick()}
+                />}
             </div>
         </div>
     );
