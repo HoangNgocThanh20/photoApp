@@ -11,7 +11,7 @@ AddEditPage.propTypes = {};
 function AddEditPage(props) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {photoId} = useParams(); // lấy các biến trên url
+  const { photoId } = useParams(); // lấy các biến trên url
   console.log({photoId});
   const isAddMode = !photoId; // ktra xem là add hay edit
   const edditPhoto = useSelector(state => state.photos.find(x => x.id === +photoId))
@@ -24,14 +24,15 @@ function AddEditPage(props) {
     : edditPhoto
 
   const handleSubmit = (values) => {
+    const photoId = Math.trunc(Math.random()*100)
     return new Promise(resolve => {
       setTimeout(() => {
         if(isAddMode) {
-          const action = addphoto(values)
+          const action = addphoto({...values,id:photoId})
           dispatch(action);
         }
         else {
-          const action = updatePhoto(values);
+          const action = updatePhoto({...values,id:photoId});
           dispatch(action);
         }
         history.push('/photo');

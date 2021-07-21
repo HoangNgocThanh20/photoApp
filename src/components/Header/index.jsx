@@ -12,11 +12,11 @@ function Header() {
           <Col xs="auto">
             <a 
               className="header__link header__title"
-              href="https://www.youtube.com/"
+              href="https://github.com/HoangNgocThanhProGit/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Easy Frontend
+              MY GIT
             </a>
           </Col>
           <Col xs="auto">

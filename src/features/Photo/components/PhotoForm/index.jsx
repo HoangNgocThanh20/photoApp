@@ -10,11 +10,11 @@ import SelectField from '../../../../components/FormControl/SelectField';
 
 const useStyles = makeStyles((theme) => ({
     button: {
-      marginTop: '20px'
+      marginTop: '1rem'
     },
   }));
 function PhotoForm(props) {
-    const { initialValues,isAddMode } = props
+    const { initialValues,isAddMode,onSubmit } = props
     const classes = useStyles();
     const [url,setUrl] = useState('');
     //validate form
@@ -33,13 +33,13 @@ function PhotoForm(props) {
             setUrl(url)
         }
 
-        const onSubmit = (values) => {props.onSubmit({...values,photo: url})}
+        const SubmitDataForm = (values) => {onSubmit({...values,photo: url})}
     return (
         //form hook
-       <form onSubmit={form.handleSubmit(onSubmit)}>
+       <form onSubmit={form.handleSubmit(SubmitDataForm)}>
            <InputField form={form} name="title" label='title' type='text' />
            <SelectField form={form} name= 'selectValue' label='category'/>
-           <RandomPhotoField form={form} label='photo' name='photo' onSubmit={onGetUrlImage}/>
+           <RandomPhotoField initialValues={initialValues} form={form} label='photo' name='photo' onSubmit={onGetUrlImage}/>
            <Button variant="contained" color={isAddMode ? 'primary' : 'secondary'} type="submit" className={classes.button}>
                 {isAddMode ? 'Add to album' : 'Update your photo'}
            </Button>

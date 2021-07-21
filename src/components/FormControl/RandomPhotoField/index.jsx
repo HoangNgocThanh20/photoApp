@@ -8,12 +8,13 @@ RandomPhotoField.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   onSubmit: PropTypes.func,
+  initialValues: PropTypes.string,
 };
 
 
 function RandomPhotoField(props) {
-  const [imageValue,setImageValue] = useState('');
-  const {name,form,onSubmit} = props;
+  const [imageValue,setImageValue] = useState('https://picsum.photos/id/649/300/300');
+  const {name,form,onSubmit,initialValues} = props;
   const handleImageUrlChange = (newImageUrl) => {
     setImageValue(newImageUrl);
   }
@@ -26,6 +27,7 @@ function RandomPhotoField(props) {
         control={form.control}
 
         render ={({ field:{onBlur}  }) => <RandomPhoto
+                                      initialValues={initialValues}
                                       name={name}
                                       form={form}
                                       imageUrl={imageValue}

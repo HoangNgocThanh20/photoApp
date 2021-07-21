@@ -6,7 +6,7 @@
   
     & > img {
       width: 100%;
-      transition: all 0.45s ease 0s;
+      transition: all 0.45s ease;
     }
   
     &__title {
@@ -20,7 +20,7 @@
       left: 0;
   
       display: flex;
-      flex-flow: column;
+      flex-direction: column;
       justify-content: center;
   
       width: 100%;
@@ -28,7 +28,7 @@
       padding: 1rem;
   
       color: rgba(255, 255, 255, 0.8);
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.6);
       opacity: 0;
       transition: all 0.25s ease;
     }
