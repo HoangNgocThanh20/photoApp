@@ -9,27 +9,15 @@ import SignIn from './features/Auth/pages/SignIn';
 import Photo from './features/Photo';
 
 // Configure Firebase.
-// const config = {
-//   apiKey: process.env.REACT_APP_FIREBASE_API,
-//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-//   // ...
-// };
-// firebase.initializeApp(config);
+const config = {
+  apiKey: 'AIzaSyCKTIpdvnADn5UG93Io318jVbFYcNZI5v4',
+  authDomain: 'photo-app-f4b23.firebaseapp.com',
+  // ...
+};
+firebase.initializeApp(config);
 
 function App() {
   const [productList,setProductList] = useState([]);
-
-  // useEffect(() => {
-  //   const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-  //     if(!user) {
-  //       console.log('user is not login');
-  //       return;
-  //     }
-
-  //     console.log('Logged in user: ',user.displayName);
-  //   });
-  //   return () => unregisterAuthObserver(); 
-  // }, []);
 
   useEffect(() => {
     const getProductList = async () => {
@@ -46,6 +34,20 @@ function App() {
     }
     getProductList();
   },[])
+
+  useEffect(() => {
+    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(async user => {
+      if(!user) {
+        console.log('user is not login');
+        return;
+      }
+
+      console.log('Logged in user: ',user.displayName);
+      const token = await user.getIdToken();
+      console.log('Logged in user token:',token);
+    });
+    return () => unregisterAuthObserver();
+  }, []);
 
 
   return (

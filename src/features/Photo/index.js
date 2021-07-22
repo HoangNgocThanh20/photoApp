@@ -18,7 +18,7 @@ function Photo(props) {
 
       <Route component={NotFound} />
     </Switch>
-  );
+  ); 
 }
 
 export default Photo;
