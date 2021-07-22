@@ -9,6 +9,8 @@ RandomPhotoField.propTypes = {
   label: PropTypes.string,
   onSubmit: PropTypes.func,
   initialValues: PropTypes.string,
+  isAddMode: PropTypes.string,
+  photo: PropTypes.object,
 };
 
 
@@ -27,6 +29,8 @@ function RandomPhotoField(props) {
         control={form.control}
 
         render ={({ field:{onBlur}  }) => <RandomPhoto
+                                      isAddMode={props.isAddMode}
+                                      photo={props.photo}
                                       initialValues={initialValues}
                                       name={name}
                                       form={form}

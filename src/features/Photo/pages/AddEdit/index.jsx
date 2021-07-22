@@ -12,7 +12,7 @@ function AddEditPage(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { photoId } = useParams(); // lấy các biến trên url
-  console.log({photoId});
+  console.log('ptid',photoId);
   const isAddMode = !photoId; // ktra xem là add hay edit
   const edditPhoto = useSelector(state => state.photos.find(x => x.id === +photoId))
   const initialValues = isAddMode

@@ -8,6 +8,8 @@ RandomPhoto.propTypes = {
     imageUrl: PropTypes.string,
     onImageUrlChange: PropTypes.func,
     onRandomButtonBlur: PropTypes.func,
+    photo: PropTypes.object,
+    isAddMode: PropTypes.string,
 };
 
 const getRandomImageUrl = () => {
@@ -16,7 +18,7 @@ const getRandomImageUrl = () => {
 }
 
 function RandomPhoto(props) {
-    const {name,imageUrl,onImageUrlChange,onRandomButtonBlur,initialValues} = props;
+    const {name,imageUrl,onImageUrlChange,onRandomButtonBlur,photo,isAddMode} = props;
 
     const handleRandomPhotoClick = () => {
         if(onImageUrlChange){ 
@@ -39,7 +41,7 @@ function RandomPhoto(props) {
                 </Button>
             </div>
             <div className="random-photo__photo">
-                {imageUrl && <img src={imageUrl} 
+                {imageUrl && <img src={isAddMode?imageUrl:photo.photo} 
                     alt="Ooops ... not found . please click random again !!" 
                     onError={e => e.target.src = handleRandomPhotoClick()}
                 />}

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function SelectField({label='',form={},name=''}) {
+function SelectField({label='',form={},name='',isAddMode,photo}) {
     const classes = useStyles();
     const [value, setValue] = useState('');
 
@@ -36,10 +36,11 @@ function SelectField({label='',form={},name=''}) {
                 name={name}
                 control={control}
 
-                render={({ field }) => <FormControl className={classes.formControl} >
+                render={({ field,field:{value} }) => <FormControl className={classes.formControl} >
                 <Select name={name} 
                         label={label}
                         {...field}
+                        value={isAddMode?value:photo.categoryId}
                         fullWidth
                         >
                     <MenuItem value={1}>Technology</MenuItem>
